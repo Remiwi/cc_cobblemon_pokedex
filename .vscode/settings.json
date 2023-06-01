@@ -1,0 +1,10 @@
+{
+  "Lua.diagnostics.globals": [
+    "commands",
+    "rednet",
+    "modem",
+    "peripheral",
+    "fs",
+    "textutils"
+  ]
+}
