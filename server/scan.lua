@@ -64,7 +64,7 @@ function M.ScanForPokemon(player_name)
 
     local pokemon_data = {
         pokemon_found = true,
-        name = StringSplit(data[1])[1],
+        name = StringSplit(data[1], " has ")[1],
     }
     return pokemon_data
 end

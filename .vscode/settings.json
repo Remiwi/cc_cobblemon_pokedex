@@ -5,6 +5,7 @@
     "modem",
     "peripheral",
     "fs",
-    "textutils"
+    "textutils",
+    "colors"
   ]
 }

@@ -42,6 +42,7 @@ function HandleRequest(modem, request, replyChannel)
         print("Request: pokedex/playerdata")
         local player_data = Database.GetEntries(request.player)
         modem.transmit(replyChannel, CHANNEL, player_data)
+        return
     end
 
     print("Request: Invalid")

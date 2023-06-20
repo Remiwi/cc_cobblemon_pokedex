@@ -122,12 +122,19 @@ end
 ---@return nil
 function M.UpdateEntry(player_name, pokemon_data, backup_frequency, backup_filename)
     if database.data[player_name] == nil then
-        database.data[player_name] = {}
+        database.data[player_name] = {
+            seen = 0,
+            caught = 0,
+            sh_seen = 0,
+            sh_caught = 0,
+            entries = {}
+        }
     end
     local player_pokedex = database.data[player_name]
 
-    if player_pokedex[pokemon_data.name] == nil then
-        player_pokedex[pokemon_data.name] = {
+    if player_pokedex.entries[pokemon_data.name] == nil then
+        player_pokedex.seen = player_pokedex.seen + 1
+        player_pokedex.entries[pokemon_data.name] = {
             seen = true,
             caught = false,
             sh_seen = false,
@@ -136,13 +143,22 @@ function M.UpdateEntry(player_name, pokemon_data, backup_frequency, backup_filen
     end
 
     if pokemon_data.caught then
-        player_pokedex[pokemon_data.name].caught = true
+        if not player_pokedex.entries[pokemon_data.name].caught then
+            player_pokedex.caught = player_pokedex.caught + 1
+        end
+        player_pokedex.entries[pokemon_data.name].caught = true
     end
     if pokemon_data.shiny then
-        player_pokedex[pokemon_data.name].sh_seen = true
+        if not player_pokedex.entries[pokemon_data.name].sh_seen then
+            player_pokedex.sh_seen = player_pokedex.sh_seen + 1
+        end
+        player_pokedex.entries[pokemon_data.name].sh_seen = true
     end
     if pokemon_data.shiny and pokemon_data.caught then
-        player_pokedex[pokemon_data.name].sh_caught = true
+        if not player_pokedex.entries[pokemon_data.name].sh_caught then
+            player_pokedex.sh_caught = player_pokedex.sh_caught + 1
+        end
+        player_pokedex.entries[pokemon_data.name].sh_caught = true
     end
 
     database.num_updates = database.num_updates + 1
